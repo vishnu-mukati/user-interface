@@ -1,0 +1,27 @@
+.footer {
+    background-color: #2d89ef;
+    color: #ffffff;
+    text-align: center;
+    padding: 1rem 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+  
+  .footer:hover {
+    background-color: #1c6dc7;
+  }
+  
+  @media (max-width: 768px) {
+    .footer {
+      font-size: 0.9rem;
+      padding: 0.8rem 0;
+    }
+  }
+  

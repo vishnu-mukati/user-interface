@@ -1,0 +1,228 @@
+
+/* Cart Header */
+.cartHeader {
+    background-color: #2d89ef;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Empty Cart Message */
+  .emptyCartMessage {
+    text-align: center;
+    color: #888;
+    font-size: 1.2rem;
+    margin: 20px 0;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  /* Cart List */
+  .cartList {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 600px;
+  }
+  
+  /* Cart Item */
+  .cartItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9f9f9;
+    border: 1px solid #cccccc;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .cartItem:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Item Details */
+  .itemDetails {
+    display: flex;
+    align-items: center;
+  }
+  
+  .itemDetails img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 15px;
+    border: 1px solid #cccccc;
+  }
+  
+  .itemInfo h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333333;
+  }
+  
+  .itemInfo p {
+    margin: 4px 0;
+    font-size: 0.9rem;
+    color: #555555;
+  }
+  
+  /* Quantity Controls */
+  .quantityControls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .quantityControls button {
+    background-color: #2d89ef;
+    color: white;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .quantityControls button:hover {
+    background-color: #1c6dc7;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(45, 137, 239, 0.4);
+  }
+  
+  .quantityControls span {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #333333;
+  }
+  
+  /* Place Order Button */
+  .placeOrderContainer {
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .placeOrderContainer button {
+    background-color: #2d89ef;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .placeOrderContainer button:hover {
+    background-color: #1c6dc7;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(45, 137, 239, 0.4);
+  }
+  
+  /* Checkout Modal */
+  .checkoutModal {
+    background-color: #ffffff;
+    border: 2px solid #2d89ef;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 500px;
+    margin: 20px auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .checkoutModal h2 {
+    text-align: center;
+    color: #2d89ef;
+    font-size: 1.6rem;
+  }
+  
+  .checkoutModal h3 {
+    margin-bottom: 10px;
+    color: #333333;
+  }
+  
+  .checkoutModal ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .checkoutModal li {
+    padding: 8px 0;
+    border-bottom: 1px solid #cccccc;
+  }
+  
+  .checkoutModal p {
+    font-size: 1rem;
+    color: #333333;
+    margin: 10px 0;
+  }
+  
+  .checkoutModal label {
+    display: block;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: #555555;
+  }
+  
+  .checkoutModal textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    resize: vertical;
+    font-size: 0.9rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .checkoutModal textarea:focus {
+    outline: none;
+    border-color: #2d89ef;
+    box-shadow: 0 0 8px rgba(45, 137, 239, 0.4);
+  }
+  
+  /* Checkout Buttons */
+  .checkoutButtons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .checkoutButtons button {
+    background-color: #2d89ef;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .checkoutButtons button:hover {
+    background-color: #1c6dc7;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(45, 137, 239, 0.4);
+  }
+  
+  .checkoutButtons button:last-child {
+    background-color: #f44336;
+  }
+  
+  .checkoutButtons button:last-child:hover {
+    background-color: #d32f2f;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(211, 47, 47, 0.4);
+  }
+  
+
