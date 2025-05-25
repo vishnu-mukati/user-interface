@@ -1,21 +1,40 @@
-import React from 'react';
+import React, {useState, useEffect } from 'react';
 import Logo from '../../assets/logo.svg';
 import { ShoppingCart, User } from 'lucide-react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './Header.module.css';
 import { authActions } from '../../store/AuthSlice';
+import { cartAction } from '../../store/CartSlice';
 import OrderStatus from '../cart/OrderStatus';
 
 const Header = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const userEmail = useSelector(state => state.auth.email); 
+  const [totalQuantity, setTotalQuantity] = useState(0);
 
   // Get cart items from Redux
   const cartItems = useSelector(state => state.cart.cartData);
 
+  useEffect(() => {
+    if (userEmail) {
+      const savedCart = JSON.parse(localStorage.getItem(userEmail)) || [];
+      dispatch(cartAction.replaceCart(savedCart));
+    }
+  }, [userEmail, dispatch]);
+
+
+
   // Calculate total quantity
-  const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  useEffect(()=>{
+    setTotalQuantity(cartItems.reduce((acc, item) => acc + item.quantity, 0));
+  },[cartItems,userEmail])
+  
+
+
+    
+ 
 
   const clickHandler = () => {
     history.push("/dashboard");
@@ -23,6 +42,7 @@ const Header = () => {
 
   const logoutHandler = () => {
     dispatch(authActions.logout());
+    dispatch(cartAction.clearCart());
   };
 
   const showOrdersHandler = () =>{

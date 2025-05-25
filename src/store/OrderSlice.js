@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const orderState = {
     orders: [],
+    totalOrderAmount : 0,
   }
 
 const orderSlice = createSlice({
@@ -12,11 +13,7 @@ const orderSlice = createSlice({
       state.orders.push(action.payload);
     },
     updateOrderStatus(state, action) {
-      const { id, status } = action.payload;
-      const order = state.orders.find((order) => order.id === id);
-      if (order) {
-        order.status = status;
-      }
+      state.orders = action.payload;
     },
   },
 });

@@ -61,7 +61,7 @@ const AuthForm = () => {
         returnSecureToken: true,
       })
       setIsLoading(false);
-      token = response.data.idToken;
+      token = response.data.idToken; 
 
       // if(response && response.data){
       dispatch(authActions.isLogin({ email: enteredEmail, token: token }))
@@ -83,6 +83,8 @@ const AuthForm = () => {
       alert(err.response.data.error.message);
       setIsLoading(false);
     }
+
+    const idToken = localStorage.getItem('token');
 
 
     if (!isLogin) {

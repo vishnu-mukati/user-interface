@@ -2,12 +2,14 @@ import { Fragment, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classes from "./Cart.module.css";
 import { cartAction } from "../../store/CartSlice";
+import axios from "axios";
 import { orderAction } from "../../store/OrderSlice"; // Importing order actions
 
 const Cart = () => {
     const dispatch = useDispatch();
     const cartData = useSelector((state) => state.cart.cartData);
-
+    console.log (cartData);
+    const userEmail = useSelector(state=>state.auth.email);
     const [showCheckout, setShowCheckout] = useState(false);
     const [address, setAddress] = useState("");
 
@@ -17,49 +19,80 @@ const Cart = () => {
         }
     }, [cartData]);
 
+  
+
     useEffect(()=>{
-        const storedCart = localStorage.getItem("cartData");
-        if (storedCart) {
-            dispatch(cartAction.setCartFromLocalStorage(JSON.parse(storedCart)));
-        }
-    },[dispatch])
-    
-    useEffect(() => {
-        if (cartData.length > 0) {
-            localStorage.setItem("cartData", JSON.stringify(cartData));
-        }
-    }, [cartData]);
-
-
+        const temp =  JSON.parse(localStorage.getItem(userEmail));
+            dispatch(cartAction.replaceCart(temp));
+    },[userEmail]);
 
     const removeItemHandler = (id) => {
-        dispatch(cartAction.removeToCart(id));
+        const temp = JSON.parse(localStorage.getItem(userEmail)) || [];
+        dispatch(cartAction.removeFromCart(id));
+        const existingItem = temp.find((i) => i.id === id);
+        console.log(existingItem);
+        if (existingItem.quantity===1) {
+           const updatedCart = temp.filter((i) => i.id !== id);
+           localStorage.setItem(userEmail, JSON.stringify(updatedCart));
+           
+        } else {
+            existingItem.quantity -= 1;
+            existingItem.totalPrice = existingItem.quantity * existingItem.price;
+            const updatedCart = temp.map((i) => (i.id === id ? existingItem : i));
+            localStorage.setItem(userEmail, JSON.stringify(updatedCart));
+        }
+    };
+    const addItemHandler = (item) => {
+        const temp = JSON.parse(localStorage.getItem(userEmail)) || [];
+        const updatedItem = {
+            ...item,
+            totalPrice: item.price * item.quantity,
+        };
+
+        dispatch(cartAction.addToCart(updatedItem));
+
+
+      
+    
+        const existingItem = temp.find((i) => i.id === item.id);
+        if (existingItem) { 
+            existingItem.quantity += 1;
+            existingItem.totalPrice = existingItem.quantity * existingItem.price;
+        } else {
+            temp.push({ ...item, quantity: 1 });
+        }
+        localStorage.setItem(userEmail, JSON.stringify(temp));
+ 
     };
 
-    const addItemHandler = (item) => {
-      
-        dispatch(cartAction.addToCart(item));
-    };
 
     const placeOrderHandler = () => {
         setShowCheckout(true);
     };
 
-    const confirmOrderHandler = () => {
+    async function confirmOrderHandler () {
         if (address.trim() === "") {
             alert("Please enter your delivery address.");
             return;
         }
-
+        const orderId = new Date().getTime().toString();
         const order = {
-            id: new Date().getTime(),
+            id: orderId,
             items: cartData,
             address,
             paymentMethod: "COD",
             status: "Pending",
         };
 
-        dispatch(orderAction.addOrder(order));
+    try{
+    const response = await axios.post(`https://restaurant-user-panel-default-rtdb.firebaseio.com/orders/${userEmail}/${orderId}.json`, order);
+    const firebaseId = response.data.name;
+    dispatch(orderAction.addOrder({ order }));
+    }catch(err){
+        alert(err.message);
+    }
+
+       
         dispatch(cartAction.clearCart());
         setShowCheckout(false);
         alert("🎉 Order Placed Successfully!");

@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialAuthState = {
     email: localStorage.getItem('email'),
     token: localStorage.getItem('token'),
+
     isAuthenticated: !!localStorage.getItem('token'),
 }
 
@@ -16,6 +17,7 @@ const authSlice = createSlice({
             state.email = email.replace(/[@.]/g, "_");
                 state.isAuthenticated = true;
             localStorage.setItem('token', token);
+            
             localStorage.setItem('email', state.email);
         },
         logout(state) {

@@ -1,39 +1,58 @@
 import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import { authActions } from '../../store/AuthSlice';
 import axios from 'axios';
 import classes from './UserProfile.module.css';
 
 const UserProfile = () => {
+  const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);  
   const [name, setName] = useState('');
   const nameInputRef = useRef();
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.post(
-          'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyB-4zGintfY6F596VqLXCPFAoAlQGVK_N4',
-          {
-            idToken: token,
-          }
-        );
-        const fetchedName = response.data.users[0].displayName;
-        setName(fetchedName);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
+    // const fetchUserData = async () => {
+    //   try {
+    //     const response = await axios.post(
+    //       'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyB-4zGintfY6F596VqLXCPFAoAlQGVK_N4',
+    //       {
+    //         idToken: token,
+    //       }
+    //     );
+    //     const fetchedName = response.data.users[0].displayName;
+    //     setName(fetchedName);
+    //   } catch (error) {
+    //     console.log(error.message);
+    //   }
+    // };
 
-    fetchUserData();
+    // fetchUserData();
+    if (token) {
+      getUserData();
+    }
   }, [token]);
 
+  async function getUserData() {
+    try {
+          const response = await axios.post(
+            'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyB-4zGintfY6F596VqLXCPFAoAlQGVK_N4',
+            {
+              idToken: token,
+            }
+          );
+          const fetchedName = response.data.users[0].displayName;
+          setName(fetchedName);
+        } catch (error) {
+          console.log(error.message);
+        }
+  }
  
   const updateProfileHandler = async (event) => {
     event.preventDefault();
     const updatedName = nameInputRef.current.value;
 
     try {
-      await axios.post(
+      const response = await axios.post(
         'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyB-4zGintfY6F596VqLXCPFAoAlQGVK_N4',
         {
           idToken: token,
@@ -41,6 +60,9 @@ const UserProfile = () => {
           returnSecureToken: true,
         }
       );
+      const newToken = response.data.idToken;
+      dispatch(authActions.isLogin({ token: newToken}));
+      localStorage.setItem('token', newToken); 
       setName(updatedName);
       alert('Profile updated successfully!');
     } catch (error) {

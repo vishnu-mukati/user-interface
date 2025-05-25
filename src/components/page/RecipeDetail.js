@@ -3,14 +3,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './RecipeDetail.module.css';
 import { cartAction } from '../../store/CartSlice';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useEffect, useMemo } from 'react';
 
 const RecipeDetail = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const history = useHistory();
+    const userEmail = useSelector(state => state.auth.email);
+    const cartData = useSelector(state=>state.cart.cartData);
     const recipe = useSelector(state =>
         state.list.categoriesList.find(item => item.id === id)
     );
+
+    useEffect(()=>{
+       localStorage.setItem(userEmail, JSON.stringify(cartData));
+    },[cartData,userEmail])
 
     const addToCartHandler = (recipe) => {
         dispatch(cartAction.addToCart(recipe));

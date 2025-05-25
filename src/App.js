@@ -13,7 +13,6 @@ import OrderStatus from "./components/cart/OrderStatus";
 function App() {
 
   const isAuth = useSelector(state => state.auth.isAuthenticated);
-  console.log(isAuth);
   return (
     <BrowserRouter>
      {isAuth && <Header />}
