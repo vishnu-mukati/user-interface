@@ -216,3 +216,59 @@
   color: #1c6dc7;
   text-decoration: underline;
 }
+
+/* Small devices (phones, up to 480px) */
+@media (max-width: 480px) {
+  .auth {
+    padding: 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .auth h1 {
+    font-size: 1.2rem;
+  }
+
+  .actions button {
+    padding: 0.6rem 1.5rem;
+  }
+}
+
+/* Medium devices (portrait tablets and large phones, 481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .auth {
+    width: 85%;
+    font-size: 1rem;
+  }
+
+  .auth h1 {
+    font-size: 1.4rem;
+  }
+
+  .actions button {
+    padding: 0.7rem 1.8rem;
+  }
+}
+
+/* Large devices (landscape tablets, 769px to 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .auth {
+    width: 70%;
+    font-size: 1.1rem;
+  }
+
+  .auth h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Extra large devices (laptops/desktops, 1025px and up) */
+@media (min-width: 1025px) {
+  .auth {
+    max-width: 24rem;
+    font-size: 1.1rem;
+  }
+
+  .auth h1 {
+    font-size: 1.6rem;
+  }
+}

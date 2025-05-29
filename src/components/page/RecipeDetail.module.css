@@ -1,3 +1,9 @@
+.Heading {
+  text-align: center;
+  font-size: xx-large;
+  color: #111;
+}
+
 .detailContainer {
     max-width: 800px;
     margin: 20px auto;
@@ -16,12 +22,11 @@
   }
   
   .image {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
+    width: 20%;
+    max-width: 150px;
+    height: 120px;
     border-radius: 12px;
-    margin: 20px 0;
-    object-fit: cover;
+    margin: 3px 0;
     transition: transform 0.3s ease;
   }
   
@@ -33,6 +38,7 @@
     color: #222;
     font-size: 2.2rem;
     margin: 10px 0;
+    text-align: left;
     font-weight: bold;
     letter-spacing: 1px;
   }
@@ -41,6 +47,7 @@
     font-size: 1.1rem;
     color: #444;
     margin: 10px 0;
+    text-align: left;
     line-height: 1.6;
   }
   
@@ -49,7 +56,7 @@
     font-weight: bold;
   }
   
-  /* Button Group Styles */
+  /* Button Group classes */
   .buttonGroup {
     display: flex;
     justify-content: center;
@@ -108,5 +115,16 @@
       width: 100%; /* Full-width buttons on mobile */
       padding: 14px 0;
     }
+    .image {
+      width: 90%;
+      height: auto;
+    }
   }
   
+
+  @media (min-width : 600px) {
+    .image {
+      width : 90%;
+      height : auto;
+    }
+  }

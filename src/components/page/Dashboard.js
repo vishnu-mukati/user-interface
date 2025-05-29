@@ -1,70 +1,95 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
-import { categoriesListAction } from "../../store/RecipeCategorySlice";
-import styles from "./Dashboard.module.css";
+import { RecipesListAction } from "../../store/RecipeCategorySlice";
+import classes from "./Dashboard.module.css";
+import RecipeDetail from "./RecipeDetail";
 import { useHistory } from 'react-router-dom';
+import { CategoriesListAction } from "../../store/CategoriesSlice";
 
 const Dashboard = () => {
      const dispatch = useDispatch();
-     const dataLoaded = useSelector(state => state.list.dataLoaded);
-     const categoriesList = useSelector(state => state.list.categoriesList);
+     const dataLoaded = useSelector(state => state.categories.dataLoaded);
+     const RecipesList = useSelector(state => state.list.RecipesList);
      const history = useHistory();
-     
-     
+     const Categories = useSelector(state => state.categories.CategoriesList);
+
+
+
      async function getData() {
           try {
-               const response = await axios.get(`https://restaurant-admin-panel-fc3cc-default-rtdb.firebaseio.com/categorieslist.json`);
-               dispatch(categoriesListAction.clearCategories());
-               if (response.data) {
-                    for (const key of Object.keys(response.data)) {
-                         const categoriesData = {
+               const recipesRes = await axios.get('https://restaurant-admin-panel-7f6af-default-rtdb.firebaseio.com/Recipeslist.json');
+
+               if (recipesRes.data) {
+                    for (const key of Object.keys(recipesRes.data)) {
+                         const recipe = {
                               id: key,
-                              ...response.data[key],
+                              ...recipesRes.data[key],
                          };
-                         dispatch(categoriesListAction.addcategories(categoriesData));
+                         console.log(recipe);
+                         dispatch(RecipesListAction.addRecipes(recipe));
                     }
-               } 
+               }
+               const res = await axios.get('https://restaurant-admin-panel-7f6af-default-rtdb.firebaseio.com/Categorieslist.json')
+
+               console.log(res.data);
+               if (res.data) {
+                    const categoriesArray = Object.keys(res.data).map(key => ({
+                         id: key,
+                         ...res.data[key]
+                    }));
+                    dispatch(CategoriesListAction.addCategories(categoriesArray));
+                     dispatch(CategoriesListAction.setDataLoaded(true));
+               }
+
+          
           } catch (err) {
                alert(err.message);
           }
      }
-     
+
+     // useEffect(() => {
+     //      let intervalId;
+     //      if (!dataLoaded) {
+     //           getData();
+     //           intervalId = setInterval(getData, 5000);
+     //      }
+     //      return () => clearInterval(intervalId);
+     // }, []);
+
      useEffect(() => {
-          let intervalId;
-          if (!dataLoaded) {
-              getData();
-              intervalId = setInterval(getData, 5000);
-          }
-          return () => clearInterval(intervalId);
-      }, [dataLoaded]);
-     
-     const handleCategoryClick = (id) => {
-          history.push(`/recipe/${id}`);
+    getData(); // Immediate fetch
+    const intervalId = setInterval(getData, 5000); // Then poll every 5s
+    return () => clearInterval(intervalId);
+}, []);
+
+
+     const handleCategoryClick = (category) => {
+         history.push(`/category/${category}`);
      };
 
-  
-     
-     
+
      return (
           <>
-               <div className={styles.dashboardContainer}>
-                    <h1>Welcome To The Recipe Category</h1>
+               <div className={classes.dashboardContainer}>
+                    <h1>Welcome To The Category</h1>
                </div>
-               <ul className={styles.cardContainer}>
-                    {categoriesList.map((item) => (
-                         <li
-                         key={item.id}
-                         className={styles.card}
-                         onClick={() => handleCategoryClick(item.id)}
-                         >
-                                 
-                              <img   src={item.image}  alt={item.recipeName} className={styles.image}/>
-                              <h3>{item.recipeName}</h3>
-                              <p>Price: ₹{item.price}</p>
-                         </li>
-                    ))}
-               </ul>
+               {Categories && Categories.length > 0 ? (
+                    <ul className={classes.cardContainer}>
+                         {Categories.map(category => (
+                              <li
+                                   key={category.id || category.categorieName}
+                                   className={classes.card}
+                                   onClick={() => handleCategoryClick(category.categorieName)}
+                              >
+                                   <img className={classes.image} src={category.image} alt={category.categorieName} />
+                                   <h3>{category.categorieName}</h3>
+                              </li>
+                         ))}
+                    </ul>
+               ) : (
+                    <p>No categories available</p>
+               )}
           </>
      );
 };

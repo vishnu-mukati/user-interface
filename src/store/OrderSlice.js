@@ -15,6 +15,9 @@ const orderSlice = createSlice({
     updateOrderStatus(state, action) {
       state.orders = action.payload;
     },
+    clearOrders(state,action){
+      state.orders = [];
+    }
   },
 });
 

@@ -3,7 +3,7 @@ import Logo from '../../assets/logo.svg';
 import { ShoppingCart, User } from 'lucide-react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import styles from './Header.module.css';
+import classes from './Header.module.css';
 import { authActions } from '../../store/AuthSlice';
 import { cartAction } from '../../store/CartSlice';
 import OrderStatus from '../cart/OrderStatus';
@@ -23,7 +23,6 @@ const Header = () => {
       dispatch(cartAction.replaceCart(savedCart));
     }
   }, [userEmail, dispatch]);
-
 
 
   // Calculate total quantity
@@ -50,34 +49,34 @@ const Header = () => {
   }
 
   return (
-    <header className={styles.header}>
-      <div onClick={clickHandler} className={styles.logo}>
+    <header className={classes.header}>
+      <div onClick={clickHandler} className={classes.logo}>
         <img src={Logo} alt="My Logo" style={{ height: '50px' }} />
       </div>
 
       <input
         type="text"
         placeholder="Search..."
-        className={styles.searchInput}
+        className={classes.searchInput}
       />
-      <div className={styles.rightSection}>
-        <div className={styles.icons}>
+      <div className={classes.rightSection}>
+        <div className={classes.icons}>
           <User onClick={() => history.push('/profile')} size={24} />
 
-          <div className={styles.cartIcon} onClick={() => history.push('/cart')}>
+          <div className={classes.cartIcon} onClick={() => history.push('/cart')}>
             <ShoppingCart size={24} />
             {totalQuantity > 0 && (
-              <span className={styles.cartBadge}>{totalQuantity}</span>
+              <span className={classes.cartBadge}>{totalQuantity}</span>
             )}
           </div>
         </div>
       </div>
       <div>
-       <button onClick={showOrdersHandler}>Orders</button>
+       <button  className={classes.orderButton} onClick={showOrdersHandler}>Orders</button>
       </div>
 
       <div>
-        <button className={styles.logoutButton} onClick={logoutHandler}>
+        <button className={classes.logoutButton} onClick={logoutHandler}>
           Log Out
         </button>
       </div>

@@ -6,27 +6,13 @@ import classes from './UserProfile.module.css';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.auth.token);  
+  const token = useSelector((state) => state.auth.token);
+  console.log(token);  
   const [name, setName] = useState('');
   const nameInputRef = useRef();
+  const urlInputRef = useRef();
 
   useEffect(() => {
-    // const fetchUserData = async () => {
-    //   try {
-    //     const response = await axios.post(
-    //       'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyB-4zGintfY6F596VqLXCPFAoAlQGVK_N4',
-    //       {
-    //         idToken: token,
-    //       }
-    //     );
-    //     const fetchedName = response.data.users[0].displayName;
-    //     setName(fetchedName);
-    //   } catch (error) {
-    //     console.log(error.message);
-    //   }
-    // };
-
-    // fetchUserData();
     if (token) {
       getUserData();
     }
@@ -40,6 +26,7 @@ const UserProfile = () => {
               idToken: token,
             }
           );
+          console.log(response.data);
           const fetchedName = response.data.users[0].displayName;
           setName(fetchedName);
         } catch (error) {
@@ -60,6 +47,9 @@ const UserProfile = () => {
           returnSecureToken: true,
         }
       );
+
+      // const response = axios.post('https://firebase.google.com/docs/auth/admin/manage-users#update_a_user')
+      console.log(response.data);
       const newToken = response.data.idToken;
       dispatch(authActions.isLogin({ token: newToken}));
       localStorage.setItem('token', newToken); 
@@ -77,6 +67,8 @@ const UserProfile = () => {
         <div className={classes.control}>
           <label htmlFor="name">Name:</label>
           <input type="text" id="name" defaultValue={name} ref={nameInputRef} />
+          {/* <label htmlFor="profile">ProfileUrl:</label>
+          <input type="url" id="profile" defaultValue={url} ref={urlInputRef} /> */}
         </div>
         <button className={classes.button}>Update Profile</button>
       </form>

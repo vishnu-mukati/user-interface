@@ -1,0 +1,113 @@
+.detailPage {
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f7f7f7;
+}
+
+h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+button {
+  background-color: #ff7043;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 0 auto 2rem auto;
+  display: block;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #ff5722;
+}
+
+.recipeList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  list-style: none;
+  padding: 0;
+}
+
+.recipeList ul {
+  padding: 0;
+  margin: 0;
+}
+
+.recipeList li {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.recipeList li:hover {
+  transform: translateY(-5px);
+}
+
+.recipeList img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.recipeList h3 {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+  color: #444;
+  text-align: center;
+}
+
+.recipeList p {
+  margin: 0.3rem 0;
+  color: #666;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.recipeList button {
+  margin-top: 0.5rem;
+  width: 100%;
+  background-color: #4caf50;
+  transition: background-color 0.3s;
+}
+
+.recipeList button:hover {
+  background-color: #388e3c;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .recipeList {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  button {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .recipeList {
+    grid-template-columns: 1fr;
+  }
+
+  .recipeList img {
+    height: 160px;
+  }
+}

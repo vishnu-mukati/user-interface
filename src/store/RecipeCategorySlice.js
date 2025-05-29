@@ -1,22 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialCategoriesState = {
-    categoriesList : [],
+const initialRecipesState = {
+    RecipesList : [],
     dataLoaded : false,
 }
 
-const RecipeCategoriesSlice = createSlice({
-    name : "categories",
-    initialState : initialCategoriesState,
+const RecipeRecipesSlice = createSlice({
+    name : "Recipes",
+    initialState : initialRecipesState,
     reducers : {
-        addcategories(state, action) {
-            const exists = state.categoriesList.find(item => item.id === action.payload.id);
+        addRecipes(state, action) {
+            const exists = state.RecipesList.find(item => item.id === action.payload.id);
             if (!exists) {
-              state.categoriesList.push(action.payload); 
+              state.RecipesList.push(action.payload); 
             }
         },
-        clearCategories(state) {
-            state.categoriesList = []; 
+        clearRecipes(state) {
+            state.RecipesList = []; 
         },
         setDataLoaded(state, action) {  
             state.dataLoaded = action.payload;
@@ -25,5 +25,5 @@ const RecipeCategoriesSlice = createSlice({
 });
 
 
-export const categoriesListAction = RecipeCategoriesSlice.actions;
-export default RecipeCategoriesSlice.reducer;
+export const RecipesListAction = RecipeRecipesSlice.actions;
+export default RecipeRecipesSlice.reducer;

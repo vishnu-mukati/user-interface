@@ -22,7 +22,7 @@ const Cart = () => {
   
 
     useEffect(()=>{
-        const temp =  JSON.parse(localStorage.getItem(userEmail));
+        const temp =  JSON.parse(localStorage.getItem(userEmail)) || [];
             dispatch(cartAction.replaceCart(temp));
     },[userEmail]);
 
@@ -88,11 +88,13 @@ const Cart = () => {
     const response = await axios.post(`https://restaurant-user-panel-default-rtdb.firebaseio.com/orders/${userEmail}/${orderId}.json`, order);
     const firebaseId = response.data.name;
     dispatch(orderAction.addOrder({ order }));
-    }catch(err){
-        alert(err.message);
-    }
+    // dispatch(cartAction.clearCart());
+}catch(err){
+    alert(err.message);
+}
 
-       
+
+localStorage.removeItem(userEmail);
         dispatch(cartAction.clearCart());
         setShowCheckout(false);
         alert("🎉 Order Placed Successfully!");

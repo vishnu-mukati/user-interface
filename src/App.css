@@ -1,0 +1,24 @@
+/* Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+  body {
+    background-color: #f0f8ff;
+  }
+
+  .app-container {
+    padding: 10px;
+  }
+}
+
+/* Tablet (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .app-container {
+    padding: 20px;
+  }
+}
+
+/* Desktop (769px and above) */
+@media (min-width: 769px) {
+  .app-container {
+    padding: 40px;
+  }
+}
