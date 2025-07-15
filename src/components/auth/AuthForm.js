@@ -62,6 +62,7 @@ const AuthForm = () => {
       })
       setIsLoading(false);
       token = response.data.idToken; 
+      console.log(response.data);
 
       // if(response && response.data){
       dispatch(authActions.isLogin({ email: enteredEmail, token: token }))
